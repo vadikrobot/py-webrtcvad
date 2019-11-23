@@ -21,10 +21,6 @@
 
 typedef struct WebRtcVadInst VadInst;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // Creates an instance to the VAD structure.
 VadInst* WebRtcVad_Create(void);
 
@@ -79,9 +75,5 @@ int WebRtcVad_Process(VadInst* handle,
 //
 // returns            : 0 - (valid combination), -1 - (invalid combination)
 int WebRtcVad_ValidRateAndFrameLength(int rate, size_t frame_length);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif  // COMMON_AUDIO_VAD_INCLUDE_WEBRTC_VAD_H_  // NOLINT

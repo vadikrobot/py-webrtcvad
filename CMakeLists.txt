@@ -16,5 +16,6 @@ find_package(Threads REQUIRED)
 set(webrtc_SOURCE_DIR cbits)
 add_subdirectory(${webrtc_SOURCE_DIR})
 
-add_executable(example example.cpp)
-target_link_libraries(example webrtc)
+add_executable(${PROJECT_NAME} example.cpp)
+target_link_libraries(${PROJECT_NAME} webrtc)
+target_link_libraries(${PROJECT_NAME} Threads::Threads)

@@ -27,14 +27,14 @@ std::vector<Frame> generate_frames(int frame_duration_ms, const std::vector<int1
 int main(int argc, char **argv) {
     auto wad = webrtc::CreateVad(webrtc::Vad::kVadNormal);
 
-    webrtc::WavReader reader("../leak-test.wav");
-    std::cout << "reader.sample_rate() " << reader.sample_rate() << "\n";
+    auto reader = webrtc::CreateWavReader("../leak-test.wav");
+    std::cout << "reader.sample_rate() " << reader->sample_rate() << "\n";
 
-    std::vector<int16_t> v(reader.num_samples());
-    std::cout << "readed: " << reader.ReadSamples(reader.num_samples(), v.data()) << "\n";
+    std::vector<int16_t> v(reader->num_samples());
+    std::cout << "readed: " << reader->ReadSamples(reader->num_samples(), v.data()) << "\n";
 
-    for (const Frame& frame: generate_frames(30, v, reader.sample_rate())) {
-        webrtc::Vad::Activity activity = wad->VoiceActivity(v.data() + frame.left, (frame.right - frame.left) / 2, reader.sample_rate());
+    for (const Frame& frame: generate_frames(30, v, reader->sample_rate())) {
+        webrtc::Vad::Activity activity = wad->VoiceActivity(v.data() + frame.left, (frame.right - frame.left) / 2, reader->sample_rate());
         std::cout << "timestamp: " << frame.duration / 1000. << "; activity: " << activity << "\n";
     }
 

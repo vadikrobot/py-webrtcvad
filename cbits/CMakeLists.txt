@@ -1,16 +1,15 @@
 cmake_minimum_required(VERSION 3.1)
 project(webrtc)
 
-# Enable C++14
+# Enable C++17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-    set(CMAKE_CXX_FLAGS "-Wall ${CMAKE_CXX_FLAGS}")
-endif()
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-stack-protector")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-stack-protector")
 
-
-find_package(Threads REQUIRED)
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -msse -msse2 -msse3")
+set(CMAKE_C_FLAGS_RELEASE "-O3 -msse -msse2 -msse3")
 
 ##################################
 
@@ -48,7 +47,6 @@ SET(signal_processing_SOURCE
 )
 
 add_library(${PROJECT_NAME} ${signal_processing_SOURCE})
-target_link_libraries(${PROJECT_NAME} Threads::Threads)
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC WEBRTC_POSIX)
 target_compile_definitions(${PROJECT_NAME} PUBLIC WEBRTC_LINUX)
@@ -61,3 +59,14 @@ target_include_directories(${PROJECT_NAME}
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/webrtc/common_audio>
         ${CMAKE_CURRENT_SOURCE_DIR}
 )
+
+set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "webrtc/common_audio/vad/include/webrtc_vad.h;webrtc/common_audio/vad/include/vad.h;webrtc/common_audio/wav_file.h")
+
+install(TARGETS ${PROJECT_NAME}
+        EXPORT ${PROJECT_NAME}Config
+        LIBRARY DESTINATION lib ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION lib ${CMAKE_INSTALL_LIBDIR}
+        PUBLIC_HEADER DESTINATION include/webrtc
+        )
+
+# install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION include)

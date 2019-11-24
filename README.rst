@@ -15,7 +15,12 @@ The VAD that Google developed for the `WebRTC <https://webrtc.org/>`_
 project is reportedly one of the best available, being fast, modern
 and free.
 
-How to use it
+
+C++
+-------------
+Use `cmake <https://github.com/vadikrobot/py-webrtcvad/blob/master/cbits/CMakeLists.txt>`_ in cbits for compiling library. Check c++ `example.cpp <https://github.com/vadikrobot/py-webrtcvad/blob/master/CMakeLists.txt>`_
+
+Python
 -------------
 
 0. Install the webrtcvad module::
@@ -42,8 +47,7 @@ How to use it
     sample_rate = 16000
     frame_duration = 10  # ms
     frame = b'\x00\x00' * int(sample_rate * frame_duration / 1000)
-    print 'Contains speech: %s' % (vad.is_speech(frame, sample_rate)
-
+    print 'Contains speech: %s' % (vad.is_speech(frame, sample_rate)   
 
 See `example.py
 <https://github.com/wiseman/py-webrtcvad/blob/master/example.py>`_ for

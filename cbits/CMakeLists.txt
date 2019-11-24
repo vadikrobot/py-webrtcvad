@@ -36,12 +36,12 @@ SET(signal_processing_SOURCE
     webrtc/common_audio/vad/vad_gmm.c
     webrtc/common_audio/vad/vad_sp.c
     webrtc/common_audio/vad/webrtc_vad.c
-    webrtc/rtc_base/checks.cc
-    webrtc/rtc_base/system/file_wrapper.cc
     webrtc/common_audio/audio_util.cc
     webrtc/common_audio/vad/vad.cc
     webrtc/common_audio/wav_file.cc
     webrtc/common_audio/wav_header.cc
+    webrtc/rtc_base/checks.cc
+    webrtc/rtc_base/system/file_wrapper.cc
     webrtc/rtc_base/critical_section.cc
     webrtc/rtc_base/platform_thread.cc
     webrtc/rtc_base/platform_thread_types.cc

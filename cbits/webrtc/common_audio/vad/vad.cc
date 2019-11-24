@@ -19,6 +19,9 @@ extern "C" {
 
 // #include "webrtc/base/checks.h"
 
+#define RTC_CHECK(X) if(!(X)) throw 1
+#define RTC_CHECK_EQ(X, Y) if((X) != (Y)) throw 1
+
 namespace webrtc {
   Vad::~Vad() = default;
 
@@ -52,9 +55,9 @@ class VadImpl final : public Vad {
     if (handle_)
       WebRtcVad_Free(handle_);
     handle_ = WebRtcVad_Create();
-    // RTC_CHECK(handle_);
-    // RTC_CHECK_EQ(WebRtcVad_Init(handle_), 0);
-    // RTC_CHECK_EQ(WebRtcVad_set_mode(handle_, aggressiveness_), 0);
+    RTC_CHECK(handle_);
+    RTC_CHECK_EQ(WebRtcVad_Init(handle_), 0);
+    RTC_CHECK_EQ(WebRtcVad_set_mode(handle_, aggressiveness_), 0);
   }
 
  private:

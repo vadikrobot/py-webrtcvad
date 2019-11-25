@@ -48,6 +48,8 @@ SET(signal_processing_SOURCE
 
 add_library(${PROJECT_NAME} ${signal_processing_SOURCE})
 
+set_property(TARGET ${PROJECT_NAME} PROPERTY POSITION_INDEPENDENT_CODE ON)
+
 target_compile_definitions(${PROJECT_NAME} PUBLIC WEBRTC_POSIX)
 target_compile_definitions(${PROJECT_NAME} PUBLIC WEBRTC_LINUX)
 
